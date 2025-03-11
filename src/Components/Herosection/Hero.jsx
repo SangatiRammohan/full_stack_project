@@ -1,7 +1,6 @@
 import './Hero.css'
 import React, { useState } from 'react';
 import { Play } from 'lucide-react';
-
 const Hero = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
@@ -52,7 +51,7 @@ const Hero = () => {
     </div>
         </div>
         <div className="heropart2">
-          <img src="../../../public/HeroAssests/travel.png" alt="" />
+          <img src="../../../public/HeroAssests/travel.png" alt="main image1" />
         </div>
       </div>
     </section>
