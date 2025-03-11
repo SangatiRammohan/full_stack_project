@@ -1,0 +1,128 @@
+.footer {
+    background-color: #1e3a8a; 
+    color: #ffffff;
+    padding: 4rem 2rem;
+  }
+  
+  .footer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .footer-section h4 {
+    color: #93c5fd;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 0.5rem;
+  }
+  
+  .logo-section .footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo-image {
+    max-width: 150px;
+    margin-bottom: 1rem;
+  }
+  
+  .logo-tagline {
+    color: #bae6fd;
+    text-align: center;
+  }
+  
+  .navigation-section ul,
+  .tours-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .navigation-section ul li,
+  .tours-section ul li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .navigation-section ul li a,
+  .tours-section ul li a {
+    color: #dbeafe;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .navigation-section ul li a:hover,
+  .tours-section ul li a:hover {
+    color: #60a5fa;
+  }
+  
+  .instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .instagram-photo img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .instagram-photo img:hover {
+    transform: scale(1.05);
+  }
+  
+  .footer-bottom {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #3b82f6;
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .social-media {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .social-icon {
+    color: #bae6fd;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    color: #60a5fa;
+  }
+  
+  .copyright {
+    color: #93c5fd;
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .footer-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+    }
+  }

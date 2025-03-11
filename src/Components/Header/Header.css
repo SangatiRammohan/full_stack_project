@@ -1,0 +1,313 @@
+/* Header Styling */
+.header1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Logo Styling */
+.header1 .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header1 .logo img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.header1 .logo h2 {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Navigation Links */
+.header1 .navlinks ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 25px;
+}
+
+.header1 .navlinks ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.header1 .navlinks ul li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #007bff;
+  transition: left 0.3s ease-in-out;
+}
+
+.header1 .navlinks ul li a:hover {
+  color: #007bff;
+}
+
+.header1 .navlinks ul li a:hover::after {
+  width: 100%;
+}
+
+/* Menu Toggle for Mobile */
+.header1 .menu-toggle {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+
+
+/* Ensure content doesn't get hidden behind fixed header */
+  .header2 {
+    border-top: 2px solid #007bff;
+    border-bottom:  2px solid #007bff;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    background-color: #ffffff;
+    position: relative;
+    /* position: sticky; */
+    top: 100px;
+    z-index: 1000;
+    left: 0;
+    /* width: 100%; */
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.contactlinks {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.signupdetails button {
+    margin-left: 10px;
+    padding: 8px 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signupdetails button:hover {
+    background: #0056b3;
+}
+
+
+
+/* Additional Responsive Enhancements */
+@media screen and (max-width: 1200px) {
+  .header1 {
+    padding: 15px 3%;
+  }
+
+  .header1 .navlinks ul {
+    gap: 15px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .header1 .navlinks ul {
+    gap: 10px;
+  }
+
+  .header1 .logo img {
+    height: 40px;
+  }
+
+  .header1 .logo h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header1 {
+    padding: 10px ;
+    position: relative;
+  }
+
+  .header1 .logo {
+    flex-grow: 1;
+  }
+
+  .header1 .logo img {
+    height: 35px;
+  }
+
+  .header1 .logo h2 {
+    font-size: 1.2rem;
+  }
+
+  .header1 .navlinks {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    width: 50%;
+    background-color: rgba(255, 255, 255, 0.95);
+    transition: left 0.3s ease-in-out;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    z-index: 999;
+  }
+
+  .header1 .navlinks.open {
+    left: 0;
+  }
+
+  .header1 .navlinks ul {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .header1 .navlinks ul li {
+    margin: 12px 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .header1 .navlinks ul li a {
+    font-size: 1.2rem;
+    display: block;
+    padding: 10px;
+  }
+
+  .header1 .menu-toggle {
+    display: block;
+    z-index: 1000;
+    position: relative;
+  }
+}
+
+/* Responsive Styles for Header2 */
+@media screen and (max-width: 768px) {
+  .header2 {
+    flex-direction: column;
+    padding: 10px;
+    /* margin: 5px; */
+  }
+
+  .links {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .contactlinks {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  .signupdetails {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+  }
+
+  .signupdetails button {
+    margin: 10px 0;
+    width: 100%;
+    max-width: 100px;
+  }
+}
+
+/* Additional Mobile Responsiveness Tweaks */
+@media screen and (max-width: 480px) {
+  body {
+    padding-top: 70px;
+  }
+
+  .header1 {
+    padding: 10px 2%;
+  }
+
+  .header1 .logo img {
+    height: 30px;
+  }
+
+  .header1 .logo h2 {
+    font-size: 1.1rem;
+  }
+
+  .header1 .navlinks ul li a {
+    font-size: 1rem;
+  }
+}
+
+/* Accessibility and Touch Improvements */
+@media (hover: none) and (pointer: coarse) {
+  .header1 .navlinks ul li a {
+    padding: 12px;
+    margin: -6px;
+  }
+
+  .header1 .menu-toggle {
+    padding: 10px;
+    margin: -5px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .header1 {
+    position: static;
+    border: none;
+    box-shadow: none;
+  }
+
+  .header1 .menu-toggle {
+    display: none;
+  }
+
+  .header1 .navlinks {
+    display: block !important;
+  }
+}
+
+
+
+
+
+
+
+
+

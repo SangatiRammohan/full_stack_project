@@ -1,0 +1,257 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.hero {
+    height: 95vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-image: url(../../../public/HeroAssests/bg3.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    position: relative;
+}
+
+.heropart1 {
+    width: 550px;
+    display: grid;
+    gap: 30px;
+    line-height: 2;
+    z-index: 1;
+}
+
+.heropart1 p {
+    font-weight: 800;
+    font-size: larger;
+}
+
+.heropart1 h1 {
+    color: #546289;
+    font-weight: 900;
+    font-size: 2.5rem;
+}
+
+.heropart1 h1 span {
+    color: #173bca;
+}
+
+.heropart1 h2 {
+    color: #33588f;
+    font-size: 1.8rem;
+}
+
+.heropart2 {
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heropart2 img {
+    width: 600px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+
+/* Responsive Designs */
+@media screen and (max-width: 1200px) {
+    .hero {
+        flex-direction: column;
+        height: auto;
+        padding: 50px 20px;
+    }
+
+    .heropart1, .heropart2 {
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .heropart1 {
+        order: 2;
+    }
+
+    .heropart2 {
+        order: 1;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .hero {
+        padding: 30px 15px;
+    }
+
+    .heropart1 h1 {
+        font-size: 2rem;
+        text-align: left;
+    }
+
+    .heropart1 h2 {
+        font-size: 1.5rem;
+    }
+
+    .heropart1 p {
+        font-size: 4rem;
+        text-align: left;
+    }
+    .heropart2{
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+    .hero {
+        padding: 20px 10px;
+    }
+
+    .heropart1 h1 {
+        font-size: 1.7rem;
+    }
+
+    .heropart1 h2 {
+        font-size: 1.3rem;
+    }
+
+    .heropart1 p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .heropart2 img {
+        width: 100%;
+    }
+}
+
+/* Accessibility and Print Styles */
+@media print {
+    .hero {
+        height: auto;
+        background-image: none;
+        background-color: white;
+    }
+}
+
+/* Ensure full responsiveness */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+.tour-buttons-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .explore-tours-btn {
+    width: 200px;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .explore-tours-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .watch-tour-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 200px;
+    padding: 12px 20px;
+    background-color: transparent;
+    color: #007bff;
+    border: 2px solid #007bff;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .watch-tour-btn .play-icon {
+    color: #007bff;
+    transition: transform 0.3s ease;
+  }
+  
+  .watch-tour-btn:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .watch-tour-btn:hover .play-icon {
+    color: white;
+    transform: scale(1.2);
+  }
+  
+  /* Video Modal Styles */
+  .video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .video-container {
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    background-color: black;
+  }
+  
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .close-video-btn {
+    position: absolute;
+    top: -8px;
+    right: 4px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    z-index: 1100;
+  }
+  
+  /* Responsive Adjustments */
+  @media screen and (max-width: 768px) {
+    .tour-buttons-container {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .explore-tours-btn,
+    .watch-tour-btn {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
