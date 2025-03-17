@@ -1,0 +1,376 @@
+/* WeekendTours.css */
+
+.weekend-tours-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .weekend-tours-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .weekend-tours-header h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .weekend-tours-header p {
+    font-size: 16px;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  /* Tour Cards */
+  .tour-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+  }
+  
+  .tour-card {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .tour-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .tour-card-image {
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .tour-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .tour-card:hover .tour-card-image img {
+    transform: scale(1.05);
+  }
+  
+  .tour-card-content {
+    padding: 20px;
+  }
+  
+  .tour-card-content h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .tour-card-content p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  
+  .tour-highlights {
+    margin-bottom: 20px;
+  }
+  
+  .tour-highlights h3 {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 8px;
+  }
+  
+  .tour-highlights ul {
+    padding-left: 20px;
+  }
+  
+  .tour-highlights li {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  .view-details-button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+  }
+  
+  .view-details-button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Tour Details */
+  .tour-details-container {
+    padding: 20px 0;
+  }
+  
+  .back-button {
+    padding: 8px 16px;
+    background-color: #f1f1f1;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .tour-details-container h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 25px;
+  }
+  
+  .tour-details-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+  }
+  
+  .tour-details-left {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .tour-image {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .tour-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .tour-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .tour-section h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .tour-section p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  .tour-plan-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 15px;
+  }
+  
+  .tour-plan-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .city-info {
+    margin-bottom: 20px;
+  }
+  
+  .city-info h3 {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 8px;
+  }
+  
+  .city-info p {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .tour-section ul {
+    padding-left: 20px;
+  }
+  
+  .tour-section li {
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: #666;
+  }
+  
+  .must-visit-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    padding-left: 0 !important;
+    list-style-type: none;
+  }
+  
+  .must-visit-list li {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .gallery-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .gallery-item {
+    height: 150px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+  
+  /* Booking Form */
+  .booking-form-container {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 30px;
+  }
+  
+  .booking-form-container h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .form-group input, 
+  .form-group textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .form-group input:focus, 
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #3498db;
+  }
+  
+  .booking-submit-button {
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .booking-submit-button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .tour-details-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .booking-form-container {
+      position: static;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .weekend-tours-header h1 {
+      font-size: 28px;
+    }
+    
+    .tour-cards-container {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    
+    .gallery-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .tour-cards-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .gallery-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .must-visit-list {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .weekend-tours-header h1 {
+      font-size: 24px;
+    }
+    
+    .tour-details-container h1 {
+      font-size: 24px;
+    }
+  }
