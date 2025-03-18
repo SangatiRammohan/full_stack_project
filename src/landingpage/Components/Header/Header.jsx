@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 import logo from '../../../../public/HeaderAssests/logo.png';
 
-const Header = ({ setActiveComponent }) => {
+const Header = ({ navigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const location = useLocation();
   
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -35,6 +37,11 @@ const Header = ({ setActiveComponent }) => {
     };
   }, []);
   
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+  
   const toggleDropdown = (index, e) => {
     if (window.innerWidth <= 768) {
       e.preventDefault();
@@ -42,22 +49,23 @@ const Header = ({ setActiveComponent }) => {
     }
   };
   
-  const handleNavigation = (component, e) => {
-    e.preventDefault();
-    setActiveComponent(component);
+  const handleNavigation = (path) => {
+    if (navigate) {
+      navigate(path);
+    }
     setIsMenuOpen(false);
     window.scrollTo(0, 0); // Scroll to top when navigating
   };
 
-  // Map package options to their corresponding component names
+  // Map package options to their corresponding paths
   const packageOptions = [
-    { display: 'Weekend Tours', component: 'WeekendTour' },
-    { display: 'Hill Station Tours', component: 'Package_HillStationTours' },
-    { display: 'Goa Tour', component: 'Package_GoaTour' },
-    { display: 'Kerala Tour', component: 'Package_KeralaTour' },
-    { display: 'Golden Triangular Tours', component: 'Package_GoldenTriangularTours' },
-    { display: 'Summer Holiday Tour', component: 'Package_SummerHolidayTour' },
-    { display: 'Beach Vacation Tours', component: 'Package_BeachVacationTours' }
+    { display: 'Weekend Tours', path: '/packages/weekend-tours' },
+    { display: 'Hill Station Tours', path: '/packages/hill-station-tours' },
+    { display: 'Goa Tour', path: '/packages/goa-tour' },
+    { display: 'Kerala Tour', path: '/packages/kerala-tour' },
+    { display: 'Golden Triangular Tours', path: '/packages/golden-triangle-tours' },
+    { display: 'Summer Holiday Tour', path: '/packages/summer-holiday-tour' },
+    { display: 'Beach Vacation Tours', path: '/packages/beach-vacation-tours' }
   ];
 
   return (
@@ -65,10 +73,10 @@ const Header = ({ setActiveComponent }) => {
       <div className="container">
         <div className="header-content">
           {/* Logo - clicking on logo returns to Home */}
-          <div className="logo" onClick={(e) => handleNavigation('Home', e)} style={{ cursor: 'pointer' }}>
+          <Link to="/" className="logo" onClick={() => setIsMenuOpen(false)}>
             <img src={logo} alt="OpticView Logo" />
             <span className="logo-text">OpticView</span>
-          </div>
+          </Link>
           
           {/* Mobile menu button */}
           <button 
@@ -81,40 +89,47 @@ const Header = ({ setActiveComponent }) => {
           {/* Navigation */}
           <nav className={`main-nav ${isMenuOpen ? 'active' : ''}`}>
             <ul>
-              <li><a href="#" onClick={(e) => handleNavigation('Home', e)}>Home</a></li>
-              <li><a href="#" onClick={(e) => handleNavigation('About', e)}>About Us</a></li>
-              <li><a href="#" onClick={(e) => handleNavigation('Guide', e)}>Guide</a></li>
+              <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
+              <li><Link to="/about" onClick={() => setIsMenuOpen(false)}>About Us</Link></li>
+              <li><Link to="/guide" onClick={() => setIsMenuOpen(false)}>Guide</Link></li>
               <li className={`dropdown ${activeDropdown === 3 ? 'active' : ''}`}>
-                <a
-                  href="#"
+                <Link
+                  to="/packages"
                   className="dropdown-trigger"
-                  onClick={(e) => toggleDropdown(3, e)}
+                  onClick={(e) => {
+                    if (window.innerWidth <= 768) {
+                      e.preventDefault();
+                      toggleDropdown(3, e);
+                    } else {
+                      setIsMenuOpen(false);
+                    }
+                  }}
                 >
                   Packages
-                </a>
+                </Link>
                 <div className="dropdown-content">
                   {packageOptions.map((option, index) => (
-                    <a key={index} href="#" onClick={(e) => handleNavigation(option.component, e)}>
+                    <Link key={index} to={option.path} onClick={() => setIsMenuOpen(false)}>
                       {option.display}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </li>
-              <li><a href="#" onClick={(e) => handleNavigation('Testimonials', e)}>Testimonials</a></li>
-              <li><a href="#" onClick={(e) => handleNavigation('Contact', e)}>Contact</a></li>
+              <li><Link to="/testimonials" onClick={() => setIsMenuOpen(false)}>Testimonials</Link></li>
+              <li><Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link></li>
             </ul>
             
             {/* Mobile-only sign buttons */}
             <div className="mobile-sign-buttons">
-              <button className="sign-button" onClick={(e) => handleNavigation('SignUp', e)}>Sign Up</button>
-              <button className="sign-button" onClick={(e) => handleNavigation('SignIn', e)}>Sign In</button>
+              <Link to="/signup" className="sign-button" onClick={() => setIsMenuOpen(false)}>Sign Up</Link>
+              <Link to="/signin" className="sign-button" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
             </div>
           </nav>
           
           {/* Desktop-only sign buttons */}
           <div className="desktop-sign-buttons">
-            <button className="sign-button" onClick={(e) => handleNavigation('SignUp', e)}>Sign Up</button>
-            <button className="sign-button" onClick={(e) => handleNavigation('SignIn', e)}>Sign In</button>
+            <Link to="/signup" className="sign-button">Sign Up</Link>
+            <Link to="/signin" className="sign-button">Sign In</Link>
           </div>
         </div>
       </div>

@@ -11,13 +11,20 @@
   --transition-speed: 0.3s;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
-body{
-  overflow-x:hidden;
+
+body {
+  overflow-x: hidden;
 }
 
 /* Header Styles */
@@ -47,6 +54,7 @@ body{
   align-items: center;
   transition: transform var(--transition-speed);
   cursor: pointer;
+  text-decoration: none;
 }
 
 .logo:hover {
@@ -71,6 +79,12 @@ body{
 }
 
 /* Navigation Styles */
+.main-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
 .main-nav ul {
   display: flex;
   list-style: none;
@@ -148,6 +162,18 @@ body{
   padding-left: 20px;
 }
 
+.dropdown-trigger {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-trigger::after {
+  content: '▼';
+  font-size: 10px;
+  margin-left: 5px;
+  transition: transform var(--transition-speed);
+}
+
 /* Show dropdown on hover for desktop with animation */
 @media (min-width: 769px) {
   .dropdown:hover .dropdown-content {
@@ -157,8 +183,12 @@ body{
   }
 }
 
-
 /* Sign Up/Sign In Button Styles */
+.desktop-sign-buttons,
+.mobile-sign-buttons {
+  display: flex;
+}
+
 .sign-button {
   background-color: var(--primary-color);
   color: var(--white-color);
@@ -172,6 +202,7 @@ body{
   position: relative;
   overflow: hidden;
   z-index: 1;
+  text-decoration: none;
 }
 
 .sign-button::before {
@@ -200,6 +231,24 @@ body{
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Alternate style for first sign button */
+.desktop-sign-buttons .sign-button:first-child,
+.mobile-sign-buttons .sign-button:first-child {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.desktop-sign-buttons .sign-button:first-child::before,
+.mobile-sign-buttons .sign-button:first-child::before {
+  background-color: var(--primary-light);
+}
+
+.desktop-sign-buttons .sign-button:first-child:hover,
+.mobile-sign-buttons .sign-button:first-child:hover {
+  color: var(--primary-hover);
+}
+
 /* Mobile menu button */
 .mobile-menu-btn {
   display: none;
@@ -222,15 +271,16 @@ body{
 }
 
 /* Responsive Design */
-@media (max-width: 998px) {
+@media (max-width: 768px) {
   .mobile-menu-btn {
     display: block;
+    order: 3;
   }
 
   .main-nav {
-    position: fixed;
+    position: absolute;
     top: 80px;
-    left: -250px;
+    left: -100%;
     width: 250px;
     height: calc(100vh - 80px);
     background-color: var(--white-color);
@@ -238,6 +288,7 @@ body{
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     transition: left 0.3s ease;
     overflow-y: auto;
+    padding: 10px 0;
   }
 
   .main-nav.active {
@@ -246,7 +297,7 @@ body{
 
   .main-nav ul {
     flex-direction: column;
-    padding: 20px 0;
+    width: 100%;
   }
 
   .main-nav ul li {
@@ -258,43 +309,35 @@ body{
     border-bottom: 1px solid #f0f0f0;
   }
 
-
-.main-nav ul li a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: 10px;
-  left: 50%;
-  background-color: var(--primary-color);
-  transition: all var(--transition-speed);
-  transform: translateX(-100%);
-  opacity: 0;
-}
+  .main-nav ul li a::after {
+    display: none;
+  }
 
   .dropdown-content {
     position: static;
     box-shadow: none;
-    margin-left: 20px;
-    width: auto;
-    min-width: 0;
+    display: none;
     transform: none;
     opacity: 1;
+    padding-left: 15px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-speed);
   }
 
   .dropdown.active .dropdown-content {
     display: block;
+    max-height: 500px;
   }
 
-  .dropdown-trigger:after {
+  .dropdown-trigger::after {
     content: '+';
-    margin-left: 5px;
-    transition: transform var(--transition-speed);
+    margin-left: auto;
+    font-size: 18px;
   }
 
-  .dropdown.active .dropdown-trigger:after {
+  .dropdown.active .dropdown-trigger::after {
     content: '-';
-    transform: rotate(180deg);
   }
 
   /* Hide desktop sign buttons and show mobile ones */
@@ -305,7 +348,7 @@ body{
   .mobile-sign-buttons {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 10px 20px;
     border-top: 1px solid #f0f0f0;
     margin-top: 10px;
   }
@@ -314,5 +357,25 @@ body{
     margin: 5px 0;
     width: 100%;
     text-align: center;
+  }
+}
+
+/* Additional responsive tweaks */
+@media (max-width: 480px) {
+  .header-content {
+    height: 70px;
+  }
+  
+  .logo img {
+    height: 40px;
+  }
+  
+  .logo-text {
+    font-size: 20px;
+  }
+  
+  .main-nav {
+    top: 70px;
+    height: calc(100vh - 70px);
   }
 }

@@ -1,4 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from './Firebase/firebase'; // Import frm firebase.js file
+
 // Import components
 import Header from './landingpage/Components/Header/Header';
 import Hero from './landingpage/Components/Herosection/Hero';
@@ -15,141 +19,70 @@ import Guide from './Guide/Guide';
 import TourPackages from './Tours/GoldenTrianglr/TourPackages';
 import WeekendTours from './Tours/weekendTour/WeekendTour';
 import HillStation from './Tours/HillStation/HillStation';
+import SignIn from './Authentication/SignIn';
+import SignUp from './Authentication/SignUp';
+// Import other package components as needed (Goa, Kerala, etc.)
 
+
+const Home = () => {
+  return (
+    <>
+      <Hero />
+      <City />
+      <AboutPage />
+      <Process />
+      <VideoHero />
+      <Packages />
+      <Testimonials />
+      <SubscribeSection />
+      <ContactSection />
+    </>
+  );
+};
+
+// Main App component
 const App = () => {
-  const [activeComponent, setActiveComponent] = useState('Home');
-  const homeRef = useRef(null);
+  const navigate = useNavigate();
+  
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
-  // Function to return to home view
-  const returnToHome = () => {
-    setActiveComponent('Home');
-    // Scroll to top when returning to home
-    window.scrollTo(0, 0);
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    
+    return () => unsubscribe();
+  }, []);
 
-  // Render specific component or all components for home page
-  const renderContent = () => {
-    switch (activeComponent) {
-      case 'About':
-        return (
-          <div className="single-component-view">
-            <AboutPage />
-            <button className="return-home-btn" onClick={returnToHome}>
-              Return to Home
-            </button>
-          </div>
-        );
-      case 'Guide':
-        return (
-          <div className="single-component-view">
-            <Guide />
-            <button className="return-home-btn" onClick={returnToHome}>
-              Return to Home
-            </button>
-          </div>
-        );
-      case 'Testimonials':
-        return (
-          <div className="single-component-view">
-            <Testimonials />
-            <button className="return-home-btn" onClick={returnToHome}>
-              Return to Home
-            </button>
-          </div>
-        );
-      case 'Contact':
-        return (
-          <div className="single-component-view">
-            <ContactSection />
-            <button className="return-home-btn" onClick={returnToHome}>
-              Return to Home
-            </button>
-          </div>
-        );
-      case 'WeekendTour':
-        return (
-          <div className="single-component-view">
-            <WeekendTours />
-            <button className="return-home-btn" onClick={returnToHome}>
-              Return to Home
-            </button>
-          </div>
-        );
-        case 'Package_GoldenTriangularTours':
-        return (
-          <div className="single-component-view">
-            <TourPackages />
-            <button className="return-home-btn" onClick={returnToHome}>
-              Return to Home
-            </button>
-          </div>
-        );
-        case 'Package_HillStationTours':
-          return (
-            <div className="single-component-view">
-             <HillStation/>
-              <button className="return-home-btn" onClick={returnToHome}>
-                Return to Home
-              </button>
-            </div>
-          );
-          // case 'Package_GoaTour':
-          //   return (
-          //     <div className="single-component-view">
-          //      <Goa/>
-          //       <button className="return-home-btn" onClick={returnToHome}>
-          //         Return to Home
-          //       </button>
-          //     </div>
-          //   );
-      case 'Home':
-        return (
-          <div className="home-view" ref={homeRef}>
-            <Hero />
-            <City />
-            <AboutPage />
-            <Process />
-            <VideoHero />
-            <Packages />
-            <Testimonials />
-            <SubscribeSection />
-            <ContactSection />
-          </div>
-        );
-      default:
-        if (activeComponent.startsWith('Package_')) {
-          const packageName = activeComponent.replace('Package_', '');
-          return (
-            <div className="single-component-view">
-              <Packages filter={packageName} />
-              <button className="return-home-btn" onClick={returnToHome}>
-                Return to Home
-              </button>
-            </div>
-          );
-        }
-        // Fallback to home view
-        return (
-          <div className="home-view" ref={homeRef}>
-            <Hero />
-            <City />
-            <AboutPage />
-            <Process />
-            <VideoHero />
-            <Packages />
-            <Testimonials />
-            <SubscribeSection />
-            <ContactSection />
-          </div>
-        );
-    }
-  };
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
 
+      
   return (
     <div className="app">
-      <Header setActiveComponent={setActiveComponent} />
+      <Header navigate={navigate} />
       <main className="main-content">
-        {renderContent()}
+        <Routes>
+          <Route path='/signin' element={<SignIn/>} />
+          <Route path='/signup' element={<SignUp/>} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/guide" element={<Guide />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/contact" element={<ContactSection />} />
+          <Route path="/packages" element={<Packages />} />
+          <Route path="/packages/weekend-tours" element={<WeekendTours />} />
+          <Route path="/packages/hill-station-tours" element={<HillStation />} />
+          <Route path="/packages/golden-triangle-tours" element={<TourPackages />} />
+          {/* <Route path="/packages/goa-tour" element={<Goa />} /> */}
+          {/* <Route path="/packages/kerala-tour" element={<Kerala />} /> */}
+          {/* <Route path="/packages/summer-holiday-tour" element={<SummerHoliday />} /> */}
+          {/* <Route path="/packages/beach-vacation-tours" element={<BeachVacation />} /> */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
       <Footer />
     </div>
