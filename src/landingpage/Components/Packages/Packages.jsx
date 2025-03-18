@@ -1,34 +1,41 @@
 import React from "react";
 import "./Packages.css";
+import p1 from '../../../../public/CityTours/GoldenTriangle/Golden-Triangle-Holiday-Tour-logo.jpg'
+import p2 from '../../../../public/CityTours/weekend/weekend-tour-logo.jpg'
+import p3 from "../../../../public/CityTours/HillStation/Hillstation-logo.jpg"
+import p4 from '../../../../public/CityTours/kerala/Kerala-Image-logo.jpg'
+import p5 from '../../../../public/CityTours/Goa/goa-logo.jpg' 
+import p6 from '../../../../public/CityTours/Summer/Summer-logo.jpg'
+import p7 from '../../../../public/CityTours/beach/Beach-logo.jpg'
 const Packages = () => {
     const tourPackages = [
         {
             name: "Golden Triangle Tours",
-            image:'../../../../public/CityTours/GoldenTriangle/Golden-Triangle-Holiday-Tour-logo.jpg'
+            image:{p1}
         },
         {
             name: "Weekend Tours",
-            image: '../../../../public/CityTours/weekend/weekend-tour-logo.jpg'
+            image: {p2}
         },
         {
             name: "Hill Station Tours",
-            image: '../../../../public/CityTours/HillStation/Hillstation-logo.jpg'
+            image:{p3}
         },
         {
             name: "Kerala Tour",
-            image: '../../../../public/CityTours/kerala/Kerala-Image-logo.jpg'
+            image: {p4}
         },
         {
             name: "Goa Tour",
-            image:  '../../../../public/CityTours/Goa/goa-logo.jpg'
+            image:  {p5}
         },
         {
             name: "Summer Holiday Tour",
-            image:'../../../../public/CityTours/Summer/Summer-logo.jpg'
+            image:{p6}
         },
         {
             name: "Beach Vacation Tours",
-            image: '../../../../public/CityTours/beach/Beach-logo.jpg'
+            image: {p7}
         },
     ];
 

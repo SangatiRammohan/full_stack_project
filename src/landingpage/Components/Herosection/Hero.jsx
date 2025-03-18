@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Play } from "lucide-react";
 import "./Hero.css";
-
+import i from '../../../../public/HeroAssests/sbg1.jpg'
+import i1 from '../../../../public/HeroAssests/sbg2.jpg'
+import i2 from '../../../../public/HeroAssests/sbg3.jpg'
 
 const images = [
-  '../../../../public/HeroAssests/sbg1.jpg',
-  '../../../../public/HeroAssests/sbg2.jpg',
-  '../../../../public/HeroAssests/sbg3.jpg'
+ i,i1,i2
 ];
 
 const Hero = () => {
