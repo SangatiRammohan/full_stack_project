@@ -6,6 +6,8 @@ import logo from '../../../../public/HeaderAssests/logo.png';
 const Header = ({ navigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [packageData, setPackageData] = useState(null);
   const location = useLocation();
   
   useEffect(() => {
@@ -54,18 +56,30 @@ const Header = ({ navigate }) => {
       navigate(path);
     }
     setIsMenuOpen(false);
-    window.scrollTo(0, 0); // Scroll to top when navigating
+    window.scrollTo(0, 0);
   };
 
+const handlePackageClick = async (packageKey) => {
+    setSelectedPackage(packageKey);
+    setIsMenuOpen(false);
+    window.scrollTo(0, 0);
+
+    try {
+      const packageData = await import(`../../packagesData/${packageKey}.json`);
+      setPackageData(packageData);
+    } catch (error) {
+      console.error("Error loading package data:", error);
+    }
+  };
   // Map package options to their corresponding paths
   const packageOptions = [
-    { display: 'Weekend Tours', path: '/packages/weekend-tours' },
-    { display: 'Hill Station Tours', path: '/packages/hill-station-tours' },
-    { display: 'Goa Tour', path: '/packages/goa-tour' },
-    { display: 'Kerala Tour', path: '/packages/kerala-tour' },
-    { display: 'Golden Triangular Tours', path: '/packages/golden-triangle-tours' },
-    { display: 'Summer Holiday Tour', path: '/packages/summer-holiday-tour' },
-    { display: 'Beach Vacation Tours', path: '/packages/beach-vacation-tours' }
+    { display: 'Weekend Tours', path: '/packages/weekend_tours'},
+    { display: 'Hill Station Tours', path: '/packages/hill_station_tour' },
+    { display: 'Goa Tour', path: '/packages/goa_tour' },
+    { display: 'Kerala Tour', path: '/packages/kerala_tour' },
+    { display: 'Golden Triangular Tours', path: '/packages/golden_triangle_tours' },
+    { display: 'Summer Holiday Tour', path: '/packages/summer_holiday_tour' },
+    { display: 'Beach Vacation Tours', path: '/packages/beach_tours_india' }
   ];
 
   return (
@@ -105,6 +119,7 @@ const Header = ({ navigate }) => {
                     }
                   }}
                 >
+                  {/* <Link to="/packages/hill_station_tour">Hill Station Tours</Link> */}
                   Packages
                 </Link>
                 <div className="dropdown-content">

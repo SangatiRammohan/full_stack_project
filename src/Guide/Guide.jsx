@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./Guide.css";
 
 const guides = [
@@ -110,11 +111,12 @@ const Guide = () => {
   const [flippedCards, setFlippedCards] = useState({});
   const [selectedGuide, setSelectedGuide] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleCardClick = (id) => {
-    setFlippedCards(prevState => ({
+    setFlippedCards((prevState) => ({
       ...prevState,
-      [id]: !prevState[id]
+      [id]: !prevState[id],
     }));
   };
 
@@ -122,13 +124,18 @@ const Guide = () => {
     e.stopPropagation(); // Prevent card flip
     setSelectedGuide(guide);
     setShowModal(true);
-    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
   };
 
   const closeModal = () => {
     setShowModal(false);
     setSelectedGuide(null);
-    document.body.style.overflow = 'auto'; // Re-enable scrolling
+    document.body.style.overflow = "auto"; // Re-enable scrolling
+  };
+
+  const handleBookNowClick = () => {
+    closeModal(); // Close the modal
+    navigate("/packages"); // Navigate to the Packages component
   };
 
   return (
@@ -136,8 +143,8 @@ const Guide = () => {
       <h1>Our Tour Guides</h1>
       <div className="guide-container">
         {guides.map((guide) => (
-          <div 
-            className={`guide-card-wrapper ${flippedCards[guide.id] ? 'flipped' : ''}`} 
+          <div
+            className={`guide-card-wrapper ${flippedCards[guide.id] ? "flipped" : ""}`}
             key={guide.id}
             onClick={() => handleCardClick(guide.id)}
           >
@@ -146,7 +153,7 @@ const Guide = () => {
               <div className="card-front">
                 <div className="guide-image">
                   <img src={guide.image} alt={guide.name} />
-                  <button 
+                  <button
                     className="contact-btn"
                     onClick={(e) => handleContactClick(e, guide)}
                   >
@@ -163,15 +170,23 @@ const Guide = () => {
               <div className="card-back">
                 <h3>{guide.name}</h3>
                 <div className="social-info">
-                  <p><strong>Email:</strong> {guide.email}</p>
-                  <p><strong>Instagram:</strong> {guide.instagram}</p>
-                  <p><strong>Facebook:</strong> {guide.facebook}</p>
-                  <p><strong>X:</strong> {guide.x}</p>
+                  <p>
+                    <strong>Email:</strong> {guide.email}
+                  </p>
+                  <p>
+                    <strong>Instagram:</strong> {guide.instagram}
+                  </p>
+                  <p>
+                    <strong>Facebook:</strong> {guide.facebook}
+                  </p>
+                  <p>
+                    <strong>X:</strong> {guide.x}
+                  </p>
                 </div>
-                <button 
+                <button
                   className="back-btn"
                   onClick={(e) => {
-                    e.stopPropagation(); 
+                    e.stopPropagation();
                     handleCardClick(guide.id);
                   }}
                 >
@@ -187,8 +202,10 @@ const Guide = () => {
       {showModal && selectedGuide && (
         <div className="guide-modal-overlay">
           <div className="guide-modal">
-            <button className="modal-close-btn" onClick={closeModal}>×</button>
-            
+            <button className="modal-close-btn" onClick={closeModal}>
+              ×
+            </button>
+
             <div className="modal-content">
               <div className="modal-header">
                 <div className="modal-image">
@@ -199,13 +216,13 @@ const Guide = () => {
                   <p className="modal-subtitle">{selectedGuide.description}</p>
                 </div>
               </div>
-              
+
               <div className="modal-body">
                 <div className="modal-section">
                   <h3>About</h3>
                   <p>{selectedGuide.bio}</p>
                 </div>
-                
+
                 <div className="modal-section">
                   <h3>Specialties</h3>
                   <ul className="specialty-list">
@@ -214,34 +231,53 @@ const Guide = () => {
                     ))}
                   </ul>
                 </div>
-                
+
                 <div className="modal-section">
                   <h3>Languages</h3>
                   <div className="language-tags">
                     {selectedGuide.languages.map((language, index) => (
-                      <span key={index} className="language-tag">{language}</span>
+                      <span key={index} className="language-tag">
+                        {language}
+                      </span>
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="modal-section">
                   <h3>Contact Information</h3>
                   <div className="contact-info">
-                    <p><strong>Email:</strong> {selectedGuide.email}</p>
+                    <p>
+                      <strong>Email:</strong> {selectedGuide.email}
+                    </p>
                     <div className="social-links">
-                      <a href={`https://instagram.com/${selectedGuide.instagram.substring(1)}`} target="_blank" rel="noopener noreferrer" className="social-link instagram">
+                      <a
+                        href={`https://instagram.com/${selectedGuide.instagram.substring(1)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-link instagram"
+                      >
                         Instagram
                       </a>
-                      <a href={`https://${selectedGuide.facebook}`} target="_blank" rel="noopener noreferrer" className="social-link facebook">
+                      <a
+                        href={`https://${selectedGuide.facebook}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-link facebook"
+                      >
                         Facebook
                       </a>
-                      <a href={`https://x.com/${selectedGuide.x.substring(1)}`} target="_blank" rel="noopener noreferrer" className="social-link x">
+                      <a
+                        href={`https://x.com/${selectedGuide.x.substring(1)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-link x"
+                      >
                         X
                       </a>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="modal-section">
                   <h3>Reviews</h3>
                   <div className="reviews">
@@ -251,7 +287,9 @@ const Guide = () => {
                           <span className="review-author">{review.author}</span>
                           <div className="review-rating">
                             {[...Array(review.rating)].map((_, i) => (
-                              <span key={i} className="star">★</span>
+                              <span key={i} className="star">
+                                ★
+                              </span>
                             ))}
                           </div>
                         </div>
@@ -260,9 +298,11 @@ const Guide = () => {
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="modal-actions">
-                  <button className="book-btn">Book a Tour</button>
+                  <button className="book-btn" onClick={handleBookNowClick}>
+                    Book a Tour
+                  </button>
                   <button className="message-btn">Send Message</button>
                 </div>
               </div>
