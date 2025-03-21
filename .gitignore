@@ -1,24 +1,88 @@
-# Logs
-logs
-*.log
+# Node.js
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Logs
+logs/
+*.log
+*.log.*
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build output
+dist/
+build/
+.cache/
+.vite/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+*.temp
+
+# OS generated files
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+*.~lock.*
+*.~*
+
+# Coverage reports
+coverage/
+*.lcov
+
+# React specific
+*.env
+*.env.local
+*.env.development
+*.env.production
+*.env.test
+service-worker.js
+workbox-*
+
+# Backend specific
+src/Backend/logs/
+src/Backend/temp/
+src/Backend/uploads/
+
+# Ignore JSON data files (if they are not meant to be versioned)
+src/data/*.json
+
+# Ignore compiled files
+*.out
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore test coverage reports
+coverage/
+.nyc_output/
+
+# Ignore IDE-specific files
+.idea/
+.vscode/
+*.iml
+
+# Ignore package-lock and yarn.lock if you want to avoid locking dependencies
+package-lock.json
+yarn.lock

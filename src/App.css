@@ -1,0 +1,101 @@
+/* Loading Container */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9fafb;
+}
+
+/* Outer Circle */
+.loading-box {
+  position: relative;
+  width: 8rem;
+  height: 8rem;
+}
+
+/* Inner Circle */
+.loading-inner {
+  position: absolute;
+  inset: 0;
+  background-color: red;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Faded Circle Outline */
+.loading-outline {
+  width: 6rem;
+  height: 6rem;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
+/* Rotating Line */
+.loading-line {
+  position: absolute;
+  width: 3rem;
+  height: 0.25rem;
+  background-color: #16a34a;
+  border-radius: 0.25rem;
+  animation: rotateLine 1.5s linear infinite;
+  transform-origin: center;
+}
+
+/* Dots */
+.loading-dot {
+  position: absolute;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: #16a34a;
+  border-radius: 50%;
+}
+
+/* Dot Positions */
+.loading-dot-top {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loading-dot-bottom-left {
+  bottom: 0.5rem;
+  left: 0.5rem;
+}
+
+.loading-dot-bottom-right {
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+
+/* Animation */
+@keyframes rotateLine {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .loading-box {
+      width: 6rem;
+      height: 6rem;
+  }
+  .loading-outline {
+      width: 4.5rem;
+      height: 4.5rem;
+  }
+  .loading-line {
+      width: 2rem;
+  }
+  .loading-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+  }
+}

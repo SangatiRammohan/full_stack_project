@@ -1,13 +1,73 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './About.css';
-import aboutImage from '../../../../public/About.jpg'
-import Team from '../../../../public/Team/Rammohan_Sangati.jpg'
+import aboutImage from '../../../../public/About.jpg';
+import Team from '../../../../public/Team/Rammohan_Sangati.jpg';
 
-
-const AboutPage =React.forwardRef((props, ref) => {
+const AboutPage = React.forwardRef((props, ref) => {
+  // Create refs for stats tracking
+  const statsRef = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  
+  // State for each counter
+  const [yearsCount, setYearsCount] = useState(0);
+  const [destinationsCount, setDestinationsCount] = useState(0);
+  const [travelersCount, setTravelersCount] = useState(0);
+  
+  // Function to check if element is in viewport
+  const isInViewport = (element) => {
+    if (!element) return false;
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  };
+  
+  // Handle animation
+  useEffect(() => {
+    const handleScroll = () => {
+      if (hasAnimated) return;
+      
+      if (statsRef.current && isInViewport(statsRef.current)) {
+        setHasAnimated(true);
+        
+        // Animate years counter (0 to 5)
+        let yearsCounter = 0;
+        const yearsInterval = setInterval(() => {
+          yearsCounter += 1;
+          setYearsCount(yearsCounter);
+          if (yearsCounter >= 5) clearInterval(yearsInterval);
+        }, 200);
+        
+        // Animate destinations counter (0 to 50)
+        let destCounter = 0;
+        const destInterval = setInterval(() => {
+          destCounter += 1;
+          setDestinationsCount(destCounter);
+          if (destCounter >= 50) clearInterval(destInterval);
+        }, 40);
+        
+        // Animate travelers counter (0 to 10)
+        let travCounter = 0;
+        const travInterval = setInterval(() => {
+          travCounter += 1;
+          setTravelersCount(travCounter);
+          if (travCounter >= 10) clearInterval(travInterval);
+        }, 200);
+      }
+    };
+    
+    // Check on scroll and initial load
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check on initial render
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasAnimated]);
+  
   return (
-    <div className="about-page" ref={ref}  id="about">
-
+    <div className="about-page" ref={ref} id="about">
       <div className="about-hero">
         <div className="about-hero-image">
           <img 
@@ -23,17 +83,17 @@ const AboutPage =React.forwardRef((props, ref) => {
             and unforgettable journeys. Founded in 2020, we've been dedicated to creating unique, immersive 
             travel experiences that go beyond traditional tourism.
           </p>
-          <div className="about-hero-stats">
+          <div className="about-hero-stats" ref={statsRef}>
             <div className="stat">
-              <h3>5+</h3>
+              <h3 className={hasAnimated ? "animate-stat" : ""}>{yearsCount}+</h3>
               <p>Years of Experience</p>
             </div>
             <div className="stat">
-              <h3>50+</h3>
+              <h3 className={hasAnimated ? "animate-stat" : ""}>{destinationsCount}+</h3>
               <p>Destinations</p>
             </div>
             <div className="stat">
-              <h3>10k+</h3>
+              <h3 className={hasAnimated ? "animate-stat" : ""}>{travelersCount}k+</h3>
               <p>Happy Travelers</p>
             </div>
           </div>
@@ -118,8 +178,6 @@ const AboutPage =React.forwardRef((props, ref) => {
         </div>
       </div>
     </div>
-
-    
   );
 });
 

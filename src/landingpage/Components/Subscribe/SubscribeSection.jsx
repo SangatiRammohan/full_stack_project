@@ -9,7 +9,7 @@ const SubscribeSection = () => {
         <p>Subscribe to our newsletter and never miss out on amazing travel offers and destinations.</p>
 
         <div className="subscribe-form">
-          <input type="text" placeholder="Enter your email" className="subscribe-input" />
+          <input type="Email" placeholder="Enter your email" className="subscribe-input" />
           <button className="subscribe-button">Subscribe</button>
         </div>
       </div>

@@ -1,18 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './City.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
+// Directly import all package data files
+import weekendToursData from '../../../data/Weekend_tour.json';
+import summerholiday from '../../../data/summer_holiday_tour.json';
+import keralatour from '../../../data/kerala_tour.json';
+import hillStation from '../../../data/hill_station_tour.json';
+import goldenTriangle from '../../../data/golden_triangle_tours.json';
+import goatour from '../../../data/goa_tour.json';
+import beachTour from '../../../data/beach_tours_india.json';
+
+// Create a map of all available package data
+const packageDataMap = {
+  'weekend_tours': weekendToursData,
+  'summer_holiday_tour': summerholiday,
+  'kerala_tour': keralatour,
+  'hill_station_tour': hillStation,
+  'golden_triangle_tours': goldenTriangle,
+  'goa_tour': goatour,
+  'beach_tours_india': beachTour
+};
+
 const City = () => {
-  const tourdata = [
+  const navigate = useNavigate();
+  // Move the tour data to state so we can update it
+  const [tourdata, setTourdata] = useState([]);
+  
+  // Base tour data (template)
+  const baseTourData = [
     {
       "id": 1,
       "image": '../../../public/HeroAssests/image1.jpeg',
       "date": "March 3-6, 2025",
-      "title": "Hill Station Tour",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, provident!",
-      "price": "$700",
+      "title": "weekend_tours",
+      "description": "Explore exciting weekend getaways to rejuvenate and unwind.",
+      "price": "700",
       "group_size": "10-15 Group",
       "duration": "4 days"
     },
@@ -20,9 +46,9 @@ const City = () => {
       "id": 2,
       "image": "../../../public/HeroAssests/image1.jpeg",
       "date": "March 3-6, 2025",
-      "title": "Hill Station Tour",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, provident!",
-      "price": "$700",
+      "title": 'summer_holiday_tour',
+      "description": "Beat the heat with our specially curated summer holiday packages.",
+      "price": "700",
       "group_size": "10-15 Group",
       "duration": "4 days"
     },
@@ -30,9 +56,9 @@ const City = () => {
       "id": 3,
       "image": "../../../public/HeroAssests/image1.jpeg",
       "date": "March 3-6, 2025",
-      "title": "Hill Station Tour",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, provident!",
-      "price": "$700",
+      "title": 'kerala_tour',
+      "description": "Experience the beauty of God's own country with our Kerala packages.",
+      "price": "700",
       "group_size": "10-15 Group",
       "duration": "4 days"
     },
@@ -40,9 +66,9 @@ const City = () => {
       "id": 4,
       "image": "../../../public/HeroAssests/image1.jpeg",
       "date": "March 3-6, 2025",
-      "title": "Hill Station Tour",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, provident!",
-      "price": "$700",
+      "title": 'hill_station_tour',
+      "description": "Escape to the serene heights of India's most beautiful hill stations.",
+      "price": "700",
       "group_size": "10-15 Group",
       "duration": "4 days"
     },
@@ -50,9 +76,9 @@ const City = () => {
       "id": 5,
       "image": "../../../public/HeroAssests/image1.jpeg",
       "date": "March 3-6, 2025",
-      "title": "Beach Resort Tour",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, provident!",
-      "price": "$850",
+      "title": 'golden_triangle_tours',
+      "description": "Discover the rich cultural heritage of Delhi, Agra and Jaipur.",
+      "price": "850",
       "group_size": "8-12 Group",
       "duration": "5 days"
     },
@@ -60,13 +86,78 @@ const City = () => {
       "id": 6,
       "image": "../../../public/HeroAssests/image1.jpeg",
       "date": "April 10-15, 2025",
-      "title": "Mountain Expedition",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, provident!",
-      "price": "$950",
+      "title": 'goa_tour',
+      "description": "Enjoy sun, sand and surf in India's favorite beach destination.",
+      "price": "950",
       "group_size": "6-10 Group",
+      "duration": "6 days"
+    },
+    {
+      "id": 7,
+      "image": "../../../public/HeroAssests/image1.jpeg",
+      "date": "May 15-20, 2025",
+      "title": 'beach_tours_india',
+      "description": "Explore the beautiful coastlines and beaches across India.",
+      "price": "850",
+      "group_size": "8-12 Group",
       "duration": "6 days"
     }
   ];
+
+  // Generate dynamic tour dates based on current date
+  const generateDynamicTourDates = () => {
+    const currentDate = new Date();
+    
+    return baseTourData.map(tour => {
+      // Create a new tour object to avoid mutating the original
+      const updatedTour = { ...tour };
+      
+      // Calculate new start date (add days based on tour ID to spread them out)
+      const startDate = new Date(currentDate);
+      startDate.setDate(currentDate.getDate() + (tour.id * 4)); // Spread tours 4 days apart
+      
+      // Calculate end date based on duration
+      const endDate = new Date(startDate);
+      const durationDays = parseInt(tour.duration.split(' ')[0]);
+      endDate.setDate(startDate.getDate() + durationDays - 1);
+      
+      // Format dates as "Month Day-Day, Year"
+      const startMonth = startDate.toLocaleString('default', { month: 'long' });
+      const startDay = startDate.getDate();
+      const endDay = endDate.getDate();
+      const year = startDate.getFullYear();
+      
+      // If the tour spans months, include both month names
+      if (startDate.getMonth() !== endDate.getMonth()) {
+        const endMonth = endDate.toLocaleString('default', { month: 'long' });
+        updatedTour.date = `${startMonth} ${startDay} - ${endMonth} ${endDay}, ${year}`;
+      } else {
+        updatedTour.date = `${startMonth} ${startDay}-${endDay}, ${year}`;
+      }
+      
+      return updatedTour;
+    });
+  };
+
+  // Update tour dates when component mounts
+  useEffect(() => {
+    const updatedTours = generateDynamicTourDates();
+    setTourdata(updatedTours);
+  }, []); // Empty dependency array means this runs once on component mount
+
+
+  const handleTourSelection = (tourTitle) => {
+    const packageData = packageDataMap[tourTitle];
+    if (!packageData) {
+      console.error(`No package data found for tour: ${tourTitle}`);
+      return;
+    }
+
+    // Navigate to the Tour component with the selected package data
+    navigate(`/packages/${tourTitle}`, {
+      state: { packageData }
+    });
+  };
 
   // Custom previous arrow component
   const PrevArrow = (props) => {
@@ -140,7 +231,7 @@ const City = () => {
                     <div className="tour-date">{tour.date}</div>
                   </div>
                   <div className="tourdetails">
-                    <h2>{tour.title}</h2>
+                    <h2>{tour.title.replace(/_/g, ' ')}</h2>
                     <p className="tour-description">{tour.description}</p>
                     <div className="tourtime">
                       <div className="tour-info">
@@ -156,7 +247,12 @@ const City = () => {
                         <p className="tourdays">{tour.duration}</p>
                       </div>
                     </div>
-                    <button className='tourbtn'>Explore Tour</button>
+                    <button 
+                      className='tourbtn' 
+                      onClick={() => handleTourSelection(tour.title)}
+                    >
+                      Explore Tour
+                    </button>
                   </div>
                 </div>
               </div>

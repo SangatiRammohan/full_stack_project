@@ -262,7 +262,7 @@ body {
 
 .mobile-menu-btn:hover {
   color: var(--primary-color);
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 
 /* Hide mobile sign buttons by default */

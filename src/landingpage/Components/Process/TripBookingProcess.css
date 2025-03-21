@@ -118,6 +118,7 @@
 .process-step .process-step-detaileddescription{
   color: #454b4b;
   text-align: center;
+  display:none;
 }
 .process-step.active .process-step-detailed-description {
   display: block;

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Play } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // Import for React Router
 import "./Hero.css";
 import i from '../../../../public/HeroAssests/sbg1.jpg'
 import i1 from '../../../../public/HeroAssests/sbg2.jpg'
 import i2 from '../../../../public/HeroAssests/sbg3.jpg'
 
-const images = [
- i,i1,i2
-];
+const images = [i, i1, i2];
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const navigate = useNavigate(); // Initialize navigate function
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,6 +27,11 @@ const Hero = () => {
 
   const closeVideoModal = () => {
     setIsVideoOpen(false);
+  };
+
+  // Function to navigate to Packages component
+  const navigateToPackages = () => {
+    navigate('/packages'); // Adjust the path based on your routing setup
   };
 
   return (
@@ -55,7 +60,7 @@ const Hero = () => {
 
           {/* Buttons */}
           <div className="tour-buttons-container">
-            <button className="explore-tours-btn">
+            <button className="explore-tours-btn" onClick={navigateToPackages}>
               Explore Tours
             </button>
             <button className="watch-tour-btn" onClick={handleWatchTour}>
@@ -72,14 +77,14 @@ const Hero = () => {
               <button className="close-video-btn" onClick={closeVideoModal} aria-label="Close video">
                 &times;
               </button>
-              <iframe 
-                width="560" 
-                height="315" 
+              <iframe
+                width="100%"
+                height="100%"
                 src="https://www.youtube.com/embed/BcqKFHcx9iY?si=W8jJbsaeIGto1PYt"
                 title="YouTube video player"
-                frameBorder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerPolicy="strict-origin-when-cross-origin" 
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
               ></iframe>
             </div>

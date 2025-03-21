@@ -97,7 +97,7 @@ const handlePackageClick = async (packageKey) => {
             className="mobile-menu-btn"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            ☰
+           {isMenuOpen ? '✖' : '☰'}
           </button>
           
           {/* Navigation */}

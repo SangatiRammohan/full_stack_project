@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from './Firebase/firebase';
+import { auth } from './Backend/Firebase/firebase';
+import { motion } from "framer-motion";
+
+import './App.css'
 
 // Import components
 import Header from './landingpage/Components/Header/Header';
@@ -16,12 +19,12 @@ import ContactSection from './landingpage/Components/Contact/ContactSection';
 import Footer from './landingpage/Components/Footer/Footer';
 import Packages from './landingpage/Components/Packages/Packages';
 import Guide from './Guide/Guide';
-import Tour from './Toursfile/Tour';
+import {Tour} from './Toursfile/Tour';
 import SignIn from './Authentication/SignIn';
 import SignUp from './Authentication/SignUp';
 import PaymentSuccess from './Toursfile/PaymentSuccess';
-// import MyBookings from './Toursfile/myBookings'
-
+import MyBookings from './Toursfile/MyBookings';
+// import { PaymentSuccessfully, GuideSelection } from '/src/Toursfile/Tour.jsx';
 const Home = () => {
   return (
     <>
@@ -61,7 +64,17 @@ const App = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-container">
+        <motion.div
+          className="loading-box"
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+        >
+          <div className="loading-text"></div>
+        </motion.div>
+      </div>
+    );
   }
   
   return (
@@ -71,15 +84,18 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/tour" element={<Tour />} />
         <Route path="/about" element={<AboutPage />} />
-          <Route path="/guide" element={<Guide />} />
-          <Route path="/testimonials" element={<Testimonials />} />
-          <Route path="/contact" element={<ContactSection />} />
+        <Route path="/guide" element={<Guide />} />
+        <Route path="/testimonials" element={<Testimonials />} />
+        <Route path="/contact" element={<ContactSection />} />
         <Route path="/packages" element={<Packages />} />
-        <Route path="/signin" element={!user ? <SignIn /> : <Navigate to="/" />} />
-        <Route path="/signup" element={!user ? <SignUp /> : <Navigate to="/" />} />
+        <Route path='/signin' element={<SignIn/>}/>
+        <Route path='/signup' element={<SignUp/>}/>
+        {/* <Route path="/signin" element={!user ? <SignIn /> : <Navigate to="/" />} />
+        <Route path="/signup" element={!user ? <SignUp /> : <Navigate to="/" />} /> */}
         <Route path="/packages/:packageType" element={<Tour />} />
-        <Route path='/paymnet' element={<PaymentSuccess/>}/>
-        {/* <Route path='/my-bookings' element={<MyBookings/>}/> */}
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/my-bookings" element={user ? <MyBookings /> : <Navigate to="/signin" />} />
+        {/* <Route path='' */}
         {/* Both underscore and hyphen versions of routes */}
         <Route path="/packages/weekend_tours" element={<Tour packageType="weekend_tours" />} />
         <Route path="/packages/weekend-tours" element={<Tour packageType="weekend_tours" />} />
